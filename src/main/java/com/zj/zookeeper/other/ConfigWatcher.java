@@ -44,7 +44,7 @@ public class ConfigWatcher implements Watcher{
                 System.out.println("新建 "+path+" 节点,写入数据");
             }else {
                 zooKeeper.setData(path,data,-1);
-                System.out.println(""+path+" 节点,写入数据");
+                System.out.println(path+" 节点,写入数据");
             }
         } catch (KeeperException e) {
             e.printStackTrace();
