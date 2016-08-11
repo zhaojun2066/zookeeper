@@ -21,7 +21,7 @@ public class SinglePoint  implements Watcher{
 
     private ZooKeeper zooKeeper;
     private CountDownLatch countDownLatch = new CountDownLatch(1);
-    private static final int TIMEOUT = 5000;
+    private static final int TIMEOUT = 80000;
     private static final String servers = "127.0.0.1:2181";
     private String  serverName = "";
     private static  final String ROOT = "/root004";
@@ -119,14 +119,14 @@ public class SinglePoint  implements Watcher{
                         startMaster();
                         return;
                     }
-                    //前一个节点监听后一个节点的变化
+                    //后一个节点监听前一个变化
                     String next =null;
 
                     for (int j = 0; j < size; j++) {
                         String selfName = this.getData(ROOT+"/"+servers.get(j));
-                        int nextIndex = j+1;
-                        if (serverName.equals(selfName) && nextIndex<size){
-                            next = servers.get(nextIndex);
+                        int preIndex = j-1;
+                        if (serverName.equals(selfName) && preIndex<size){
+                            next = servers.get(preIndex);
                             break;
                         }
                     }
@@ -190,11 +190,11 @@ public class SinglePoint  implements Watcher{
 
 
     public static void main(String [] args){
-        SinglePoint sp = new SinglePoint("127.0.0.1:4000");
+        SinglePoint sp = new SinglePoint("127.0.0.1:5000");
         //sp.createRoot();
         sp.createSeq();
         sp.check();
-        System.out.print("Server : "+  "127.0.0.1:4000");
+        System.out.print("Server : "+ sp.serverName);
         try {
             Thread.sleep(Integer.MAX_VALUE);
         } catch (InterruptedException e) {
