@@ -194,7 +194,7 @@ public class SinglePoint  implements Watcher{
         //sp.createRoot();
         sp.createSeq();
         sp.check();
-        System.out.print("Server : "+ sp.serverName);
+        System.out.println("Server : "+ sp.serverName);
         try {
             Thread.sleep(Integer.MAX_VALUE);
         } catch (InterruptedException e) {
