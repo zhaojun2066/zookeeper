@@ -16,6 +16,10 @@ import java.util.concurrent.Executors;
  * 利用zk 实现单点 最小节点为master 启动
  *
  * 创建临时有序节点,大节点加监听比他本身小的且是最大的节点变化（NodeDelete事件）
+ *
+ * 多次执行main 方法 每次修改serer name
+ * 然后停掉master 看其他slave 变化,是否有升为master 的slave server
+ * 实验证明成功
  */
 public class SinglePoint  implements Watcher{
 
